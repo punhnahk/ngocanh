@@ -1,0 +1,217 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="icon" type="image/png" href="image/favicon.ico">
+    <title>Anh <3 Em </title>
+            <link type="text/css" rel="stylesheet" href="./renxi/default.css">
+            <script type="text/javascript" src="./renxi/jquery.min.js"></script>
+            <script type="text/javascript" src="./renxi/jscex.min.js"></script>
+            <script type="text/javascript" src="./renxi/jscex-parser.js"></script>
+            <script type="text/javascript" src="./renxi/jscex-jit.js"></script>
+            <script type="text/javascript" src="./renxi/jscex-builderbase.min.js"></script>
+            <script type="text/javascript" src="./renxi/jscex-async.min.js"></script>
+            <script type="text/javascript" src="./renxi/jscex-async-powerpack.min.js"></script>
+            <script type="text/javascript" src="./renxi/functions.js" charset="utf-8"></script>
+            <script type="text/javascript" src="./renxi/love.js" charset="utf-8"></script>
+</head>
+
+<body
+    style="overflow: hidden; font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 0; background: #ffe;">
+    <audio autoplay="autopaly">
+        <source src="music/videoplayback.m4a" type="audio/mp3" />
+    </audio>
+    <div id="main">
+        <div id="error">
+        </div>
+        <div id="wrap"
+            style="max-width: 100%; overflow: hidden; display: flex; flex-direction: column; align-items: center; padding: 10px;">
+            <div id="text">
+                <div id="code">
+                    <p
+                        style="max-width: 90%; text-align: justify; word-wrap: break-word; font-size: 16px; line-height: 1.5; color:blueviolet; font: bold">
+                        Gửi Nguyễn Ngọc Anh, em bé của anh.
+                        </br>
+                        Tình yêu của anh và em bắt đầu từ những điều giản dị nhất. Ngay lần đầu gặp em,
+                        anh đã bị thu hút
+                        bởi nét đáng yêu, dịu dàng của em. Mỗi lần trò chuyện, mỗi lần gặp gỡ, anh càng cảm nhận được sự
+                        đồng điệu lạ thường giữa hai ta. Kể từ khi quen em qua những cuộc gọi video, khoảng cách dường
+                        như chẳng còn tồn tại. Giọng nói, nụ cười, ánh mắt của em khiến anh cảm thấy gần gũi đến kỳ lạ,
+                        như thể chúng ta đã thuộc về nhau từ lâu. Em không chỉ là người con gái anh yêu, mà còn là một
+                        phần quan trọng trong cuộc sống của anh.
+                        </br>
+                        Bây giờ, anh và em đã yêu nhau, cùng nhau vẽ nên những giấc mơ tương lai. Anh tin rằng, dù bao
+                        nhiêu năm tháng trôi qua, tình yêu của chúng ta vẫn sẽ vững bền. Hãy nắm tay anh thật chặt, cùng
+                        nhau bước đi trên con đường dài phía trước. Vì với anh, có em chính là điều hạnh phúc nhất. 💙
+                    </p>
+                </div>
+            </div>
+            <div id="clock-box">
+                <span style="color: crimson;">From Phùng Khánh with love ❤️❤️</span>
+                <span style="color: crimson;">Time of love...</span>
+                <div id="clock"></div>
+            </div>
+            <canvas id="canvas" width="1000" height="650" style="max-width: 100%;height: auto;display: block;"></canvas>
+        </div>
+
+    </div>
+    <script>
+        (function () {
+            var canvas = $('#canvas');
+            var width = $(window).width() > 1100 ? 1100 : $(window).width() * 0.9;
+            var height = width * 0.6;
+
+            if (!canvas[0].getContext) {
+                $("#error").show();
+                return false;
+            }
+            canvas.attr("width", width);
+            canvas.attr("height", height);
+            var opts = {
+                seed: {
+                    x: width / 2 - 20,
+                    color: "rgb(190, 26, 37)",
+                    scale: 2
+                },
+                branch: [
+                    [535, 680, 570, 250, 500, 200, 30, 100, [
+                        [540, 500, 455, 417, 340, 400, 13, 100, [
+                            [450, 435, 434, 430, 394, 395, 2, 40]
+                        ]],
+                        [550, 445, 600, 356, 680, 345, 12, 100, [
+                            [578, 400, 648, 409, 661, 426, 3, 80]
+                        ]],
+                        [539, 281, 537, 248, 534, 217, 3, 40],
+                        [546, 397, 413, 247, 328, 244, 9, 80, [
+                            [427, 286, 383, 253, 371, 205, 2, 40],
+                            [498, 345, 435, 315, 395, 330, 4, 60]
+                        ]],
+                        [546, 357, 608, 252, 678, 221, 6, 100, [
+                            [590, 293, 646, 277, 648, 271, 2, 80]
+                        ]]
+                    ]]
+                ],
+                bloom: {
+                    num: 700,
+                    width: 1080,
+                    height: 650,
+                },
+                footer: {
+                    width: 1200,
+                    height: 5,
+                    speed: 10,
+                }
+            }
+
+            var tree = new Tree(canvas[0], width, height, opts);
+            var seed = tree.seed;
+            var foot = tree.footer;
+            var hold = 1;
+
+            canvas.click(function (e) {
+                var offset = canvas.offset(), x, y;
+                x = e.pageX - offset.left;
+                y = e.pageY - offset.top;
+                if (seed.hover(x, y)) {
+                    hold = 0;
+                    canvas.unbind("click");
+                    canvas.unbind("mousemove");
+                    canvas.removeClass('hand');
+                }
+            }).mousemove(function (e) {
+                var offset = canvas.offset(), x, y;
+                x = e.pageX - offset.left;
+                y = e.pageY - offset.top;
+                canvas.toggleClass('hand', seed.hover(x, y));
+            });
+
+            var seedAnimate = eval(Jscex.compile("async", function () {
+                seed.draw();
+                while (hold) {
+                    $await(Jscex.Async.sleep(10));
+                }
+                while (seed.canScale()) {
+                    seed.scale(0.95);
+                    $await(Jscex.Async.sleep(10));
+                }
+                while (seed.canMove()) {
+                    seed.move(0, 2);
+                    foot.draw();
+                    $await(Jscex.Async.sleep(10));
+                }
+            }));
+
+            var growAnimate = eval(Jscex.compile("async", function () {
+                do {
+                    tree.grow();
+                    $await(Jscex.Async.sleep(10));
+                } while (tree.canGrow());
+            }));
+
+            var flowAnimate = eval(Jscex.compile("async", function () {
+                do {
+                    tree.flower(2);
+                    $await(Jscex.Async.sleep(10));
+                } while (tree.canFlower());
+            }));
+
+            var moveAnimate = eval(Jscex.compile("async", function () {
+                tree.snapshot("p1", 240, 0, 610, 680);
+                while (tree.move("p1", 500, 0)) {
+                    foot.draw();
+                    $await(Jscex.Async.sleep(10));
+                }
+                foot.draw();
+                tree.snapshot("p2", 500, 0, 610, 680);
+
+                canvas.parent().css("background", "url(" + tree.toDataURL('image/png') + ")");
+                canvas.css("background", "#ffe");
+                $await(Jscex.Async.sleep(300));
+                canvas.css("background", "none");
+            }));
+
+            var jumpAnimate = eval(Jscex.compile("async", function () {
+                var ctx = tree.ctx;
+                while (true) {
+                    tree.ctx.clearRect(0, 0, width, height);
+                    tree.jump();
+                    foot.draw();
+                    $await(Jscex.Async.sleep(25));
+                }
+            }));
+
+            var textAnimate = eval(Jscex.compile("async", function () {
+                var together = new Date();
+                together.setFullYear(2025, 1, 14);
+                together.setHours(0);
+                together.setMinutes(0);
+                together.setSeconds(0);
+                together.setMilliseconds(0);
+
+                $("#code").show().typewriter();
+                $("#clock-box").fadeIn(500);
+                while (true) {
+                    timeElapse(together);
+                    $await(Jscex.Async.sleep(1000));
+                }
+            }));
+
+            var runAsync = eval(Jscex.compile("async", function () {
+                $await(seedAnimate());
+                $await(growAnimate());
+                $await(flowAnimate());
+                $await(moveAnimate());
+
+                textAnimate().start();
+
+                $await(jumpAnimate());
+            }));
+
+            runAsync().start();
+        })();
+    </script>
+</body>
+
+</html>
